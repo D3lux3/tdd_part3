@@ -5,6 +5,13 @@ export const readFile = async (filePath: string) => {
     return await rf(filePath, { encoding: "utf8" });
 }
 
+export const parseCSV = (csvData: string) => {
+    return parse(csvData, {
+        skip_empty_lines: true,
+        trim: true,
+    });
+}
+
 export async function parsePeopleCsv(filePath) {
     const csvData = await rf(filePath, { encoding: "utf8" });
     const records = parse(csvData, {
