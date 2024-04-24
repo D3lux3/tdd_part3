@@ -7,11 +7,5 @@ export function diceRoll() {
 export function diceHandValue(diceRoll: () => number) {
     const die1 = diceRoll();
     const die2 = diceRoll();
-    if (die1 === die2) {
-        // one pair
-        return 100 + die1;
-    } else {
-        // high die
-        return Math.max(die1, die2);
-    }
+    return die1 === die2 ? 100 + die1 : Math.max(die1, die2);
 }
