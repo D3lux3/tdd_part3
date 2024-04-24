@@ -1,3 +1,9 @@
+
+/**
+ * 
+ * I add the diceRoll function as parameter to diceHandValue, so it can be tested.
+ */
+
 function diceRoll() {
   const min = 1;
   const max = 6;
