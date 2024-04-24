@@ -12,6 +12,12 @@ describe("Untestable 1: days until Christmas day", () => {
     vi.useRealTimers();
   })
 
+  test("today is actually today", () => {
+    const day = new Date(2025, 0, 1);
+    vi.setSystemTime(day);
+    expect(getTodayDate().toDateString()).equal(day.toDateString());
+  })
+
   test("year gets incremented if over this years christmas day", () => {
     const dayAfterXmas = new Date(2024, 11, 26);
     vi.setSystemTime(dayAfterXmas);
