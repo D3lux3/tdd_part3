@@ -42,7 +42,7 @@ describe("Untestable 3: CSV file parsing", () => {
   test("Read parses and maps to people", async () => {
     try {
       const filePath = "./test/untestable3_input.csv"
-      const parsedPersons = readAndParseCSV(filePath, readFile, parseCSV, parsePeopleCsv);
+      const parsedPersons = await readAndParseCSV(filePath, readFile, parseCSV, parsePeopleCsv);
       parsedPersons.forEach((person) => {
         expect(person).to.haveOwnProperty('firstName');
         expect(person).to.haveOwnProperty('lastName');
