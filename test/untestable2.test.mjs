@@ -1,6 +1,6 @@
 import { describe, test } from "vitest";
 import { expect } from "chai";
-import { diceHandValue } from "../src/testable2.ts";
+import { diceHandValue, diceRoll } from "../src/testable2.ts";
 
 describe("Untestable 2: a dice game", () => {
   test("returns 101 if dices are the same", () => {
@@ -14,5 +14,14 @@ describe("Untestable 2: a dice game", () => {
       return diceRolls.pop();
     }
     expect(diceHandValue(rollDice)).equal(5)
+  })
+
+  test("rolling dice is in range of 1-6", () => {
+    const ROLL_AMOUNT = 1000;
+    const rolls = [];
+    for (let i = 0; i < ROLL_AMOUNT; i++) {
+      rolls.push(diceRoll());
+    }
+    expect(rolls.filter((rolled) => rolled >= 1 && rolled <= 6).length).equal(rolls.length);
   })
 });
