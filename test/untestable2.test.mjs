@@ -7,4 +7,12 @@ describe("Untestable 2: a dice game", () => {
     const fakeDiceRoll = () => 1;
     expect(diceHandValue(fakeDiceRoll)).equal(101)
   });
+
+  test("returns bigger dice number if dice's differ", () => {
+    const diceRolls = [2, 5];
+    const rollDice = () => {
+      return diceRolls.pop();
+    }
+    expect(diceHandValue(rollDice)).equal(5)
+  })
 });
