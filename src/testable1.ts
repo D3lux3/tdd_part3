@@ -7,12 +7,12 @@ export function daysUntilChristmas() {
     return Math.floor(diffMillis / millisPerDay);
 }
 
-const getTodayDate = () => {
+export const getTodayDate = () => {
     const now = new Date();
     return new Date(now.getFullYear(), now.getMonth(), now.getDate());
 }
 
-const getNextChristmasDay = (today: Date) => {
+export const getNextChristmasDay = (today: Date) => {
     const christmasDay = new Date(today.getFullYear(), 12 - 1, 25);
     if (today.getTime() > christmasDay.getTime()) {
         christmasDay.setFullYear(new Date().getFullYear() + 1);
