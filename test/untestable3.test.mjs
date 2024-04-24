@@ -1,6 +1,6 @@
 import { describe, test } from "vitest";
 import { expect } from "chai";
-import { parsePeopleCsv, readFile, parseCSV } from "../src/testable3.ts";
+import { parsePeopleCsv, readFile, parseCSV, readAndParseCSV } from "../src/testable3.ts";
 
 const testData = ['Loid,Forger,,Male', 'Anya,Forger,6,Female', 'Yor,Forger,27,Female'];
 const testDataAsCSVRecords = [
@@ -39,4 +39,18 @@ describe("Untestable 3: CSV file parsing", () => {
     })
   })
 
+  test("Read parses and maps to people", async () => {
+    try {
+      const filePath = "./test/untestable3_input.csv"
+      const parsedPersons = readAndParseCSV(filePath, readFile, parseCSV, parsePeopleCsv);
+      parsedPersons.forEach((person) => {
+        expect(person).to.haveOwnProperty('firstName');
+        expect(person).to.haveOwnProperty('lastName');
+        expect(person).to.haveOwnProperty('gender');
+      })
+    } catch (e) {
+      console.log(e)
+      expect(e).equal(undefined);
+    }
+  })
 });
