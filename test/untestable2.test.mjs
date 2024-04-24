@@ -1,10 +1,11 @@
 import { describe, test } from "vitest";
 import { expect } from "chai";
-import { diceHandValue } from "../src/untestable2.mjs";
+import { diceHandValue } from "../src/testable2.ts";
 
 describe("Untestable 2: a dice game", () => {
-  test("todo", () => {
-    // TODO: write proper tests
-    expect(diceHandValue()).to.be.a("number");
+  test("returns 101 if dices are the same", () => {
+    const fakeDiceRoll = () => 1;
+
+    expect(diceHandValue(fakeDiceRoll)).equal(101)
   });
 });
