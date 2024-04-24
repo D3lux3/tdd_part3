@@ -32,9 +32,10 @@ describe("Untestable 3: CSV file parsing", () => {
 
   test("Parsed csv records gets mapped in to persons", () => {
     const persons = parsePeopleCsv(testDataAsCSVRecords);
-
     persons.forEach((person) => {
-      expect(person).to.haveOwnProperty('firstName').and.to.haveOwnProperty('lastName').and.to.haveOwnProperty('gender');
+      expect(person).to.haveOwnProperty('firstName');
+      expect(person).to.haveOwnProperty('lastName');
+      expect(person).to.haveOwnProperty('gender');
     })
   })
 
