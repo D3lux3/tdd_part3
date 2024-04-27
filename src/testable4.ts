@@ -1,7 +1,7 @@
 import argon2 from "@node-rs/argon2";
 import pg from "pg";
 
-class PostgresUserDao {
+export class PostgresUserDao {
     db = new pg.Pool({
         user: process.env.PGUSER,
         host: process.env.PGHOST,
@@ -10,8 +10,17 @@ class PostgresUserDao {
         port: process.env.PGPORT,
     });
 
-    async open() {
-        await this.db.connect();
+    async createUsersTable() {
+        await this.db.query(`create table users
+        (
+            user_id       integer primary key,
+            password_hash varchar(100) not null
+        );
+        `);
+    }
+
+    async dropTables() {
+        await this.db.query(`drop table if exists users;`);
     }
 
     close() {
@@ -43,10 +52,9 @@ class PostgresUserDao {
     }
 }
 
-export const postgresUserDao = new PostgresUserDao();
 
 export class PasswordService {
-    private users: PostgresUserDao;
+    users: PostgresUserDao;
 
     constructor(userDao: PostgresUserDao) {
         this.users = userDao;
