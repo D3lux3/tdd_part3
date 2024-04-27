@@ -1,4 +1,5 @@
 import { afterAll, afterEach, beforeEach, describe, test } from "vitest";
+import 'dotenv/config'
 import { PasswordService, postgresUserDao } from "../src/testable4.ts";
 
 describe("Untestable 4: enterprise application", () => {
@@ -7,7 +8,7 @@ describe("Untestable 4: enterprise application", () => {
 
   beforeEach(async () => {
     await daoInstance.open();
-    //  service = new PasswordService(daoInstance);
+    service = new PasswordService(daoInstance);
   });
 
   afterEach(() => {
