@@ -1,20 +1,21 @@
 import { afterAll, afterEach, beforeEach, describe, test } from "vitest";
-import { PasswordService, PostgresUserDao } from "../src/untestable4.mjs";
+import { PasswordService, postgresUserDao } from "../src/testable4.ts";
 
 describe("Untestable 4: enterprise application", () => {
   let service;
-  const daoInstance = UserDaoInstance;
+  const daoInstance = postgresUserDao;
 
-  beforeEach(() => {
-    service = new PasswordService();
+  beforeEach(async () => {
+    await daoInstance.open();
+    //  service = new PasswordService(daoInstance);
   });
 
   afterEach(() => {
-    PostgresUserDao.getInstance().close();
+    daoInstance.close();
   });
 
   afterAll(() => {
-    service.getInstance().dropTables();
+    //service.getInstance().dropTables();
   });
 
   test("todo", async () => {
