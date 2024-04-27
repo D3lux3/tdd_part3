@@ -16,7 +16,7 @@ describe("Untestable 4: enterprise application", () => {
   });
 
   afterAll(() => {
-    //service.getInstance().dropTables();
+    service.getInstance().dropTables();
   });
 
   test("todo", async () => {
