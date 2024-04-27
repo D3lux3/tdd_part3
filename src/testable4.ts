@@ -1,4 +1,3 @@
-import argon2 from "@node-rs/argon2";
 import pg from "pg";
 
 export class PostgresUserDao {
@@ -7,7 +6,7 @@ export class PostgresUserDao {
         host: process.env.PGHOST,
         database: process.env.PGDATABASE,
         password: process.env.PGPASSWORD,
-        port: process.env.PGPORT,
+        port: process.env.PGPORT as number | undefined,
     });
 
     async createUsersTable() {
@@ -60,12 +59,12 @@ export class PasswordService {
         this.users = userDao;
     }
 
-    async changePassword(userId, oldPassword, newPassword) {
+    async changePassword(userId, oldPassword, newPassword, hasher) {
         const user = await this.users.getById(userId);
-        if (!argon2.verifySync(user.passwordHash, oldPassword)) {
+        if (!hasher.verifySync(user.passwordHash, oldPassword)) {
             throw new Error("wrong old password");
         }
-        user.passwordHash = argon2.hashSync(newPassword);
+        user.passwordHash = hasher.hashSync(newPassword);
         await this.users.save(user);
     }
 }
