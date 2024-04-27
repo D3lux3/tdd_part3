@@ -1,6 +1,10 @@
 import argon2 from "@node-rs/argon2";
 import pg from "pg";
 
+/**
+ * I will remove singleton logic from PostgesUserDao, and change it to export one instance of the class.
+ * The instance will be supplied as parameter to PasswordServices constructor.
+ */
 export class PostgresUserDao {
   static instance;
 
