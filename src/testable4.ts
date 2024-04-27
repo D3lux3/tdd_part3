@@ -46,7 +46,11 @@ class PostgresUserDao {
 export const postgresUserDao = new PostgresUserDao();
 
 export class PasswordService {
-    users = PostgresUserDao.getInstance();
+    private users: PostgresUserDao;
+
+    constructor(userDao: PostgresUserDao) {
+        this.users = userDao;
+    }
 
     async changePassword(userId, oldPassword, newPassword) {
         const user = await this.users.getById(userId);
@@ -57,3 +61,4 @@ export class PasswordService {
         await this.users.save(user);
     }
 }
+
