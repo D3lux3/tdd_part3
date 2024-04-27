@@ -1,16 +1,7 @@
 import argon2 from "@node-rs/argon2";
 import pg from "pg";
 
-export class PostgresUserDao {
-    static instance;
-
-    static getInstance() {
-        if (!this.instance) {
-            this.instance = new PostgresUserDao();
-        }
-        return this.instance;
-    }
-
+class PostgresUserDao {
     db = new pg.Pool({
         user: process.env.PGUSER,
         host: process.env.PGHOST,
@@ -18,6 +9,10 @@ export class PostgresUserDao {
         password: process.env.PGPASSWORD,
         port: process.env.PGPORT,
     });
+
+    async open() {
+        await this.db.connect();
+    }
 
     close() {
         this.db.end();
@@ -47,6 +42,8 @@ export class PostgresUserDao {
         );
     }
 }
+
+export const postgresUserDao = new PostgresUserDao();
 
 export class PasswordService {
     users = PostgresUserDao.getInstance();
